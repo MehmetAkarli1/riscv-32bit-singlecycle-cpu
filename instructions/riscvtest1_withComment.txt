@@ -1,0 +1,46 @@
+# 0x00000000
+00000013    # nop (addi x0, x0, 0) ; CORRECT
+00500113    # addi x2, x0, 5       ; CORRECT
+00C00193    # addi x3, x0, 12      ; CORRECT , Tested: OK
+00100213    # addi x4, x0, 1       ; CORRECT
+00300293    # addi x5, x0, 3       ; CORRECT
+00700313    # addi x6, x0, 7       ; CORRECT
+00000393    # addi x7, x0, 0       ; CORRECT
+
+# 0x00000018
+02002023    # sw   x0, 32(x0)      ; CORRECT
+04402023    # sw   x4, 64(x0)      ; CORRECT
+02002303    # lw   x6, 32(x0)      ; CORRECT 
+04002023    # sw   x0, 64(x0)      ; CORRECT
+04102023    # sw   x1, 64(x0)      ; CORRECT , Tested: OK
+06002023    # sw   x0, 96(x0)      ; CORRECT
+
+# 0x00000030
+0471AA23    # sw   x7, 84(x3)      ; CORRECT , Tested: OK
+06002103    # lw   x2, 96(x0)      ; CORRECT
+00500113    # addi x2, x0, 5       ; CORRECT
+00900213    # addi x4, x0, 9       ; CORRECT , Tested: OK
+04402023    # sw   x4, 64(x0)      ; CORRECT
+02002303    # lw   x6, 32(x0)      ; CORRECT
+
+# 0x00000048
+00111293    # slli x5, x2, 1       ; CORRECT uses x2 as input -> 5 < < 1 = 10
+0012D293    # srli x5, x5, 1       ; CORRECT x5 = 10 > > 1 = 5
+4012D293    # srai x5, x5, 1       ; CORRECT , Tested: OK (x5 = 5 > > 1 = 2) 
+00A00293    # addi x5, x0, 10      ; CORRECT
+00211293    # slli x5, x2, 2       ; CORRECT
+02002023    # sw   x0, 32(x0)      ; CORRECT
+04402023    # sw   x4, 64(x0)      ; CORRECT
+02002303    # lw   x6, 32(x0)      ; CORRECT
+
+# 0x00000068
+0FF00113    # addi x2, x0, 255    ; CORRECT
+F0100193    # addi x3, x0, -255   ; CORRECT 
+00111293    # slli x5, x2, 1      ; CORRECT
+0012D293    # srli x5, x5, 1      ; CORRECT
+4012D293    # srai x5, x5, 1      ; CORRECT 
+04402023    # sw   x4, 64(x0)     ; CORRECT , Tested: OK (store x4(9) in address 64 in data memory)  
+02002303    # lw   x6, 32(x0)     ; CORRECT , Tested: OK (Load value from imm+rs1(32) into x6(rd)   
+
+# 0x00000084
+00000063    # beq  x0, x0, 0       ; stop: branch to self (end)
